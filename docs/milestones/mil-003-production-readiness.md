@@ -11,7 +11,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
+| 2026-11-11 | Deprecated | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
+| 2026-11-12 | Accepted | Jens Tirsvad Nielsen | S01 | Added task 6: remove the development secret key fallback (hardening requested in chat) | pending |
 
 ---
 
@@ -65,6 +66,7 @@ Environment-driven configuration, `requirements.txt` with the lecture versions, 
 | 3 | Add the Procfile and entry point | Create `Procfile` with `web: gunicorn main:app` and a top-level `main.py` exposing `app`. | No | |
 | 4 | Add Docker and PostgreSQL | Create a `Dockerfile` and `compose.yaml` with a PostgreSQL service, as a free replacement for Heroku; normalise the database URI for psycopg. | No | |
 | 5 | Test the configuration | Pytest tests for the environment handling and URI normalisation. | No | |
+| 6 | Remove the development secret key fallback | `create_app` still falls back to a hard-coded development secret key when no key is configured. Remove it so that a missing `SECRET_KEY` raises `ConfigurationError` and no secret is stored in `src/`; tests pass an explicit test key. | No | |
 
 ---
 
