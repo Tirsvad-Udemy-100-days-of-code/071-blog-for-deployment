@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial review (autonomous, not independent) | pending |
+| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial review (autonomous, not independent) | [0bb8342] |
 
 ---
 
@@ -59,3 +59,4 @@ Go - every mandatory criterion passes. Mode: autonomous, not independent; the st
 
 [MIL-002]: ../../milestones/mil-002-blog-application.md
 [QC-PY-001]: ../../../framework/qc/code/qc-programming-python.md
+[0bb8342]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/071-blog-for-deployment/commit/0bb834201b0a8149b0dcc51c567bf373c508df7f
