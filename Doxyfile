@@ -1,0 +1,15 @@
+# Doxygen configuration for the blog. Build with:  doxygen Doxyfile
+# Output goes to docs/doxygen/ (ignored by git). Full option list: doxygen -g
+PROJECT_NAME           = "Blog for deployment"
+PROJECT_BRIEF          = "Udemy 100 Days of Code, Day 71: a Flask blog prepared for deployment"
+OUTPUT_DIRECTORY       = docs/doxygen
+INPUT                  = src main.py
+FILE_PATTERNS          = *.py
+RECURSIVE              = YES
+OPTIMIZE_OUTPUT_JAVA   = YES
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = YES
