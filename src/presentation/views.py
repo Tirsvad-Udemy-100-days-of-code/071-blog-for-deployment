@@ -127,10 +127,10 @@ def edit_post(post_id: int) -> str | Response:
     return render_template("make-post.html", form=form, is_edit=True)
 
 
-@blog.route("/delete/<int:post_id>")
+@blog.route("/delete/<int:post_id>", methods=["POST"])
 @admin_only
 def delete_post(post_id: int) -> Response:
-    """! @brief Deletes a post and its comments (administrator only)."""
+    """! @brief Deletes a post and its comments (administrator only; POST so CSRFProtect guards it)."""
     try:
         _service().delete_post(_actor(), post_id)
     except NotFoundError:
