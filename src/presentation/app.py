@@ -17,10 +17,11 @@ from constants import (
     CONFIG_MAIL_PASSWORD,
     CONFIG_MAIL_USER,
     CONFIG_SECRET_KEY,
-    DEV_SECRET_KEY,
+    MSG_SECRET_KEY_MISSING,
     TEST_DB_URI,
 )
 from infrastructure.clock import SystemClock
+from infrastructure.config import ConfigurationError
 from infrastructure.database import db
 from infrastructure.mail import SmtpMailSender
 from infrastructure.repositories import SqlCommentRepository, SqlPostRepository, SqlUserRepository
@@ -30,11 +31,14 @@ from presentation.views import blog
 
 
 def create_app(config: dict[str, Any] | None = None) -> Flask:
-    """! @brief Creates a configured application; the config dict overrides the defaults."""
+    """! @brief Creates a configured application; the config dict overrides the defaults.
+    @throws ConfigurationError when the config has no non-empty SECRET_KEY.
+    """
     app = Flask(__name__)
-    app.config[CONFIG_SECRET_KEY] = DEV_SECRET_KEY
     app.config[CONFIG_DB_URI] = TEST_DB_URI
     app.config.update(config or {})
+    if not app.config.get(CONFIG_SECRET_KEY):
+        raise ConfigurationError(MSG_SECRET_KEY_MISSING)
 
     db.init_app(app)
     Bootstrap5(app)

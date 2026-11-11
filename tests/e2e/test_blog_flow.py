@@ -5,6 +5,7 @@ import re
 from collections.abc import Iterator
 
 import pytest
+from app_config import TEST_CONFIG
 from flask import Flask
 from flask.testing import FlaskClient
 
@@ -16,7 +17,7 @@ POST = {"title": "Hello", "subtitle": "World", "img_url": "", "body": "<p>Body t
 
 @pytest.fixture
 def app() -> Iterator[Flask]:
-    yield create_app({"TESTING": True, "WTF_CSRF_ENABLED": False})
+    yield create_app({**TEST_CONFIG, "TESTING": True, "WTF_CSRF_ENABLED": False})
 
 
 @pytest.fixture
@@ -141,7 +142,7 @@ def _csrf_token(client: FlaskClient, path: str) -> str:
 
 
 def test_delete_requires_csrf_token_when_protection_enabled() -> None:
-    app = create_app({"TESTING": True, "WTF_CSRF_ENABLED": True})
+    app = create_app({**TEST_CONFIG, "TESTING": True, "WTF_CSRF_ENABLED": True})
     admin = app.test_client()
     admin.post(
         "/register",

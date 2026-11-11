@@ -32,8 +32,6 @@ SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 465
 ## Database used by the app factory when its config gives none.
 TEST_DB_URI = "sqlite:///:memory:"
-## Secret key used when the config gives none (development and tests only).
-DEV_SECRET_KEY = "dev-only-secret-key"
 ## Flask config keys read by the app factory.
 CONFIG_SECRET_KEY = "SECRET_KEY"
 CONFIG_DB_URI = "SQLALCHEMY_DATABASE_URI"

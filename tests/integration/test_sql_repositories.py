@@ -5,6 +5,7 @@ import logging
 from collections.abc import Iterator
 
 import pytest
+from app_config import TEST_CONFIG
 from flask import Flask
 
 from domain.entities import Comment, Post, User
@@ -18,7 +19,7 @@ from presentation import create_app
 
 @pytest.fixture
 def app() -> Iterator[Flask]:
-    application = create_app({"TESTING": True})
+    application = create_app({**TEST_CONFIG, "TESTING": True})
     with application.app_context():
         yield application
 
