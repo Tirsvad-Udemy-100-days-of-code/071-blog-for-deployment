@@ -1,8 +1,8 @@
-# Blog untuk penggunaan
+# Blog untuk penempatan
 
 🌐 [English](Home) · [Dansk](Home-da) · **Bahasa Melayu**
 
-Udemy *100 Days of Code*, hari ke-71: bawa blog Flask dari komputer riba ke bekas (container) yang boleh digunakan. Wiki ini menerangkan setiap langkah kuliah dan apa yang dipelajari.
+Udemy *100 Days of Code*, hari ke-71: bawa blog Flask dari komputer riba ke kontena (container) yang boleh ditempatkan. Wiki ini menerangkan setiap langkah kuliah dan apa yang dipelajari.
 
 | Halaman | Baca apabila anda mahu |
 | --- | --- |
