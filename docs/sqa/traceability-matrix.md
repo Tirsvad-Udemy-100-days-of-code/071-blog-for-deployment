@@ -24,10 +24,10 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | [BC-001] | BC | en | it | - | [SA-001], [PP-001] | RC-001 |
 | [SA-001] | SA | en | it | [BC-001] | [PP-001] | RC-002 |
 | [PP-001] | PP | en | it | [BC-001], [SA-001] | MIL-001 to MIL-004 | RC-003 |
-| MIL-001 | MIL | en | it | [PP-001] | `src/`, `tests/` (baseline) | RC-004 |
-| MIL-002 | MIL | en | it | [PP-001] | `src/`, `tests/` (application) | RC-005 |
-| MIL-003 | MIL | en | it | [PP-001] | deployment files | RC-006 |
-| MIL-004 | MIL | en | it | [PP-001] | README, wiki | RC-007 |
+| MIL-001 | MIL | en | it | [PP-001] | `src/`, `tests/` (baseline) | RC-004, RC-008 |
+| MIL-002 | MIL | en | it | [PP-001] | `src/`, `tests/` (application) | RC-005, RC-009 |
+| MIL-003 | MIL | en | it | [PP-001] | deployment files | RC-006, RC-010 |
+| MIL-004 | MIL | en | it | [PP-001] | README, wiki | RC-007, RC-011, RC-012 |
 
 ## Concern Coverage
 

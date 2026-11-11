@@ -8,6 +8,7 @@ Day 71 of Udemy's *100 Days of Code: The Complete Python Pro Bootcamp*: a Flask 
 - [Requirements](#-requirements)
 - [Setup](#-setup)
 - [Run](#-run)
+- [Lecture steps](#-lecture-steps)
 - [Tests](#-tests)
 - [License](#-license)
 - [Links](#-links)
@@ -23,6 +24,7 @@ The repository follows the lecture "Learn to Deploy Your Website": put the proje
 | `main.py` | WSGI entry point, `gunicorn main:app` |
 | `tests/` | pytest suite |
 | `docs/` | Project documents, wiki sources and screenshots |
+| `scripts/` | Screenshot capture, headless in Docker (`capture_screenshots.sh`) |
 | `Doxyfile` | Doxygen configuration for the source comments |
 
 ## 📋 Requirements
@@ -87,6 +89,72 @@ docker compose --env-file .env.docker up --build
 ```
 
 The blog is then on <http://localhost:8000>. `psycopg` is installed next to the lecture's `psycopg-binary`, because the binary package alone does not contain the `psycopg` module.
+
+## 🎓 Lecture steps
+
+Each step of the lecture with a screenshot. The [wiki](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/071-blog-for-deployment/wiki) explains what each step gained, in English, Danish and Bahasa Malaysia.
+
+### 1. Run the finished blog locally
+
+The blog from day 69 and 70 is the starting point. Running it first proves that the code works before anything is changed, so a later problem is known to come from the deployment work.
+
+![01-blog-home](./docs/images/01-blog-home.png)
+
+### 2. Put the project under version control
+
+Git records every change with a message. The history can be read, compared and undone, and it is what the hosting platform deploys from.
+
+![02-commit-history](./docs/images/02-commit-history.png)
+
+### 3. Move secrets into environment variables
+
+The secret key, database address and mail login are no longer in the source. `FLASK_KEY`, `DB_URI` and `MAIL_*` are read from the environment, so the same code runs on a laptop and on a server and no secret ends up in the repository. `debug` is switched off.
+
+![03-environment-variables](./docs/images/03-environment-variables.png)
+
+### 4. Serve the app with gunicorn and a Procfile
+
+Flask's built-in server is only for development. A WSGI server such as gunicorn talks HTTP to the world and calls the Flask `app`. The `Procfile` line `web: gunicorn main:app` tells the host which command starts the web process.
+
+![04-procfile-gunicorn](./docs/images/04-procfile-gunicorn.png)
+
+### 5. Push the project to the git host
+
+The repository on the git host is the single source the deployment is built from. A `.gitignore` keeps the virtual environment, the database file and secrets out of it.
+
+![05-repository-files](./docs/images/05-repository-files.png)
+
+### 6. Host the app in containers
+
+Heroku no longer has a free plan, so Docker takes its place. The `Dockerfile` builds the image and `compose.yaml` starts the blog together with its database. The same image can run on any machine with Docker.
+
+![06-docker-compose](./docs/images/06-docker-compose.png)
+
+### 7. Upgrade SQLite to PostgreSQL
+
+SQLite is a single file and can be lost when a host moves the file system. PostgreSQL is a real database server. Because SQLAlchemy hides the difference, only the `DB_URI` changes; the code stays the same. `psycopg` is the driver.
+
+![07-postgres-tables](./docs/images/07-postgres-tables.png)
+
+### 8. Go live: register, sign in and write the first post
+
+On an empty database the first registered user becomes the administrator and can write posts. Other users can read and comment. These pages show the blog running from the container with PostgreSQL.
+
+![10-register-form](./docs/images/10-register-form.png)
+
+![11-login-form](./docs/images/11-login-form.png)
+
+![12-new-post-form](./docs/images/12-new-post-form.png)
+
+![13-blog-post](./docs/images/13-blog-post.png)
+
+![14-about](./docs/images/14-about.png)
+
+### 9. Check the result with tests
+
+The pytest suite proves the blog, the configuration and the Procfile still behave after the move. Run it before every push.
+
+![09-tests](./docs/images/09-tests.png)
 
 ## 🧪 Tests
 
