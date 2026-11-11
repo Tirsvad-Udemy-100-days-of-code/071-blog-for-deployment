@@ -4,7 +4,7 @@
 
 Udemy *100 Days of Code*, hari ke-71: bawa blog Flask dari komputer riba ke bekas (container) yang boleh digunakan. Wiki ini menerangkan setiap langkah kuliah dan apa yang dipelajari.
 
-| Page | Baca apabila anda mahu |
+| Halaman | Baca apabila anda mahu |
 | --- | --- |
 | [Langkah kuliah](Lecture-Steps-ms) | Lihat setiap langkah kuliah dengan tangkapan skrin dan apa yang diperoleh |
 | [Persediaan dan jalankan](Setup-and-Run-ms) | Cipta `.venv`, jalankan ujian dan mulakan blog |
