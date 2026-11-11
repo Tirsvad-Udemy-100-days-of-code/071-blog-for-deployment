@@ -1,0 +1,31 @@
+# Blog plus PostgreSQL: the free, self-hosted replacement for Heroku.
+# Start:  docker compose --env-file .env.docker up --build
+# (copy .env.example to .env.docker first; .env.docker is ignored by git)
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: blog
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.docker}
+      POSTGRES_DB: blog
+    volumes:
+      - blog-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blog -d blog"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      FLASK_KEY: ${FLASK_KEY:?set FLASK_KEY in .env.docker}
+      DB_URI: postgres://blog:${POSTGRES_PASSWORD}@db:5432/blog
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+
+volumes:
+  blog-data:

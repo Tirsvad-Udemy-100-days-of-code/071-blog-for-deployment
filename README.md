@@ -56,12 +56,48 @@ python -m pip install -e ".[dev]"
 
 ## ▶️ Run
 
-Run instructions are completed with the application in the following milestones.
+The app reads its settings from environment variables (see `.env.example`):
+
+| Variable | Meaning |
+| --- | --- |
+| `FLASK_KEY` | Secret key for sessions (required) |
+| `DB_URI` | Database URI; default `sqlite:///posts.db`. `postgres://` and `postgresql://` are accepted and used with psycopg 3 |
+| `MAIL_USER`, `MAIL_PASSWORD` | Optional sender of the contact form |
+
+Local run (SQLite), with the venv active:
+
+```bash
+export FLASK_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"
+python main.py
+```
+
+On Windows PowerShell use `$env:FLASK_KEY = (python -c "import secrets; print(secrets.token_hex(32))")`. The first registered user is the administrator and can write posts.
+
+Production style run with gunicorn (Linux, as in the `Procfile`: `web: gunicorn main:app`):
+
+```bash
+gunicorn main:app
+```
+
+Docker with PostgreSQL (the free replacement for Heroku):
+
+```bash
+cp .env.example .env.docker      # then edit the two secrets
+docker compose --env-file .env.docker up --build
+```
+
+The blog is then on <http://localhost:8000>. `psycopg` is installed next to the lecture's `psycopg-binary`, because the binary package alone does not contain the `psycopg` module.
 
 ## 🧪 Tests
 
 ```bash
 python -m pytest
+```
+
+Static scan before every push (the project uses opengrep):
+
+```bash
+~/.opengrep/cli/latest/opengrep.exe scan --config auto --exclude framework --exclude .venv --error .
 ```
 
 ## 📄 License
