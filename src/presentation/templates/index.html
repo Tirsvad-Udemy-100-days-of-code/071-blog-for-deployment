@@ -13,6 +13,7 @@
     <h3 class="h5 text-muted">{{ post.subtitle }}</h3>
     <p class="small">Posted by {{ post.author_name }} on {{ post.date }}
       {% if current_user.is_admin %}
+        {# nosem: python.django.security.django-no-csrf-token.django-no-csrf-token (Flask-WTF csrf_token() below; the rule only knows the Django tag) #}
         <form class="d-inline" method="post" action="{{ url_for('blog.delete_post', post_id=post.id) }}"
               onsubmit="return confirm('Delete this post?');">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
