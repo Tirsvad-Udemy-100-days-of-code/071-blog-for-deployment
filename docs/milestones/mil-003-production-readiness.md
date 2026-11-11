@@ -12,7 +12,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-11-11 | Deprecated | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
-| 2026-11-12 | Accepted | Jens Tirsvad Nielsen | S01 | Added task 6: remove the development secret key fallback (hardening requested in chat) | pending |
+| 2026-11-12 | Accepted | Jens Tirsvad Nielsen | S01 | Added task 6: remove the development secret key fallback (hardening requested in chat) | [dea2fc9] |
 
 ---
 
@@ -73,3 +73,4 @@ Environment-driven configuration, `requirements.txt` with the lecture versions, 
 [BC-001]: ../business-case.md
 [PP-001]: ../project-plan.md
 [8bad45b]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/071-blog-for-deployment/commit/8bad45b22a1694dea060d3353738c8a1c65018a8
+[dea2fc9]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/071-blog-for-deployment/commit/dea2fc94790a3f21037b9411fb903c01c7d0d34a
