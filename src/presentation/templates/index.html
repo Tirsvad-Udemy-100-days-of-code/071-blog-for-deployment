@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block header %}
+<header class="page-header" style="background-image: url('{{ default_image }}')">
+  <div class="container"><h1>{{ app_title }}</h1><p class="lead">A collection of random musings</p></div>
+</header>
+{% endblock %}
+
+{% block content %}
+{% for post in all_posts %}
+  <article class="post-preview mb-4">
+    <h2><a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+    <h3 class="h5 text-muted">{{ post.subtitle }}</h3>
+    <p class="small">Posted by {{ post.author_name }} on {{ post.date }}
+      {% if current_user.is_admin %}
+        <a class="ms-2" href="{{ url_for('blog.delete_post', post_id=post.id) }}">Delete</a>
+      {% endif %}
+    </p>
+  </article>
+{% else %}
+  <p>No posts yet.</p>
+{% endfor %}
+{% if current_user.is_admin %}
+  <a class="btn btn-primary" href="{{ url_for('blog.add_new_post') }}">Create New Post</a>
+{% endif %}
+{% endblock %}

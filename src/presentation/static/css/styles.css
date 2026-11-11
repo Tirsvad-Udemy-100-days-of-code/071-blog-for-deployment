@@ -1,0 +1,26 @@
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #212529;
+}
+
+.page-header {
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 5rem 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.post-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-preview h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-preview h2 a:hover {
+  text-decoration: underline;
+}
