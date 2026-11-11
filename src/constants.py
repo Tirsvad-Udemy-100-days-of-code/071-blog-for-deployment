@@ -39,6 +39,13 @@ CONFIG_SECRET_KEY = "SECRET_KEY"
 CONFIG_DB_URI = "SQLALCHEMY_DATABASE_URI"
 CONFIG_MAIL_USER = "MAIL_USER"
 CONFIG_MAIL_PASSWORD = "MAIL_PASSWORD"
+## URI scheme prefixes of PostgreSQL URIs that name no driver (Heroku/Render style and standard).
+DB_SCHEME_POSTGRES = "postgres://"
+DB_SCHEME_POSTGRESQL = "postgresql://"
+## URI scheme prefix that selects the installed psycopg 3 driver.
+DB_SCHEME_POSTGRESQL_PSYCOPG = "postgresql+psycopg://"
+## Message of the error raised when the secret key is not configured.
+MSG_SECRET_KEY_MISSING = "Environment variable FLASK_KEY must be set to a secret value."
 ## Key under which the BlogService is stored in app.extensions.
 BLOG_SERVICE_KEY = "blog_service"
 ## HTTP status codes used by the views.
