@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+
+{% block title %}{{ "Edit Post" if is_edit else "New Post" }}{% endblock %}
+
+{% block head %}{{ ckeditor.load() }}{% endblock %}
+
+{% block content %}
+<h1>{{ "Edit Post" if is_edit else "New Post" }}</h1>
+{{ render_form(form, novalidate=True) }}
+{% endblock %}
+
+{% block scripts %}{{ ckeditor.config(name='body') }}{% endblock %}

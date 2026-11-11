@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block head %}{{ ckeditor.load() }}{% endblock %}
+
+{% block header %}
+<header class="page-header" style="background-image: url('{{ post.img_url or default_image }}')">
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <h2 class="h4">{{ post.subtitle }}</h2>
+    <p>Posted by {{ post.author_name }} on {{ post.date }}</p>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<article class="post-body">{{ post.body | safe }}</article>
+{% if current_user.is_admin %}
+  <a class="btn btn-primary mt-3" href="{{ url_for('blog.edit_post', post_id=post.id) }}">Edit Post</a>
+{% endif %}
+
+<hr>
+<h3>Comments</h3>
+{% for comment in comments %}
+  <div class="comment border-bottom py-2">
+    <div>{{ comment.text | safe }}</div>
+    <span class="text-muted small">{{ comment.author_name }}</span>
+  </div>
+{% else %}
+  <p class="text-muted">No comments yet.</p>
+{% endfor %}
+
+<div class="mt-4">{{ render_form(form, novalidate=True) }}</div>
+{% endblock %}
+
+{% block scripts %}{{ ckeditor.config(name='comment_text') }}{% endblock %}
