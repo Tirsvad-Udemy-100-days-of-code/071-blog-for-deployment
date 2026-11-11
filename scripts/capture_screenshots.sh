@@ -56,12 +56,9 @@ compose() { docker compose --env-file "$ENV_FILE" "$@"; }
 } >"$TERM_DIR/09-tests.txt"
 
 mkdir -p docs/images
-MSYS_NO_PATHCONV=1 docker run --rm \
-	--add-host host.docker.internal:host-gateway \
-	-e BLOG_URL="http://host.docker.internal:${WEB_PORT}" \
-	-v "$(pwd -W 2>/dev/null || pwd)/scripts/capture_screenshots.py:/work/capture_screenshots.py:ro" \
-	-v "$(cd "$TERM_DIR" && (pwd -W 2>/dev/null || pwd) ):/terminal:ro" \
-	-v "$(pwd -W 2>/dev/null || pwd)/docs/images:/out" \
-	mcr.microsoft.com/playwright/python:v1.55.0-noble \
-	sh -c 'python3 -m pip install -q playwright==1.55.0 && python3 /work/capture_screenshots.py'
+# Windows (Git Bash) needs native paths for Docker volumes; Linux and macOS use pwd.
+host_path() { (cd "$1" && (pwd -W 2>/dev/null || pwd) ); }
+ROOT_PATH="$(host_path .)"
+TERM_PATH="$(host_path "$TERM_DIR")"
+MSYS_NO_PATHCONV=1 docker run --rm --add-host host.docker.internal:host-gateway -e BLOG_URL="http://host.docker.internal:${WEB_PORT}" -v "${ROOT_PATH}/scripts/capture_screenshots.py:/work/capture_screenshots.py:ro" -v "${TERM_PATH}:/terminal:ro" -v "${ROOT_PATH}/docs/images:/out" mcr.microsoft.com/playwright/python:v1.55.0-noble sh -c 'python3 -m pip install -q playwright==1.55.0 && python3 /work/capture_screenshots.py'
 ls docs/images
