@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | pending |
+| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
 
 ---
 
@@ -69,3 +69,4 @@ A repository with `pyproject.toml`, Python `.gitignore`, `src/` and `tests/` ske
 
 [BC-001]: ../business-case.md
 [PP-001]: ../project-plan.md
+[8bad45b]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/071-blog-for-deployment/commit/8bad45b22a1694dea060d3353738c8a1c65018a8
