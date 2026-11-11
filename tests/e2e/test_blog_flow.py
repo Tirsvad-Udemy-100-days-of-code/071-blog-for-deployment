@@ -1,6 +1,7 @@
 """! @file test_blog_flow.py
 @brief End-to-end tests through the Flask test client (in-memory SQLite, CSRF off).
 """
+import re
 from collections.abc import Iterator
 
 import pytest
@@ -92,7 +93,7 @@ def test_anonymous_gets_403_on_edit_and_delete(app: Flask) -> None:
     _admin_client(app).post("/new-post", data=POST)
     anonymous = app.test_client()
     assert anonymous.get("/edit-post/1").status_code == 403
-    assert anonymous.get("/delete/1").status_code == 403
+    assert anonymous.post("/delete/1").status_code == 403
 
 
 def test_anonymous_comment_redirects_to_login(app: Flask) -> None:
@@ -111,7 +112,45 @@ def test_admin_edits_post(app: Flask) -> None:
 def test_admin_deletes_post_and_it_disappears(app: Flask) -> None:
     admin = _admin_client(app)
     admin.post("/new-post", data=POST)
-    admin.get("/delete/1")
+    assert admin.post("/delete/1").status_code == 302
+    assert admin.get("/post/1").status_code == 404
+
+
+def test_delete_with_get_returns_405_for_admin(app: Flask) -> None:
+    admin = _admin_client(app)
+    admin.post("/new-post", data=POST)
+    assert admin.get("/delete/1").status_code == 405
+    assert admin.get("/post/1").status_code == 200
+
+
+def test_non_admin_post_to_delete_returns_403(app: Flask) -> None:
+    _admin_client(app).post("/new-post", data=POST)
+    second = app.test_client()
+    _register(second, "b@example.com", "Bob")
+    assert second.post("/delete/1").status_code == 403
+
+
+def test_delete_missing_post_returns_404(app: Flask) -> None:
+    assert _admin_client(app).post("/delete/99").status_code == 404
+
+
+def _csrf_token(client: FlaskClient, path: str) -> str:
+    match = re.search(r'name="csrf_token"[^>]*value="([^"]+)"', client.get(path).get_data(as_text=True))
+    assert match is not None
+    return match.group(1)
+
+
+def test_delete_requires_csrf_token_when_protection_enabled() -> None:
+    app = create_app({"TESTING": True, "WTF_CSRF_ENABLED": True})
+    admin = app.test_client()
+    admin.post(
+        "/register",
+        data={"email": "admin@example.com", "password": "pw", "name": "Admin", "csrf_token": _csrf_token(admin, "/register")},
+    )
+    admin.post("/new-post", data={**POST, "csrf_token": _csrf_token(admin, "/new-post")})
+    assert admin.post("/delete/1").status_code == 400
+    assert admin.get("/post/1").status_code == 200
+    assert admin.post("/delete/1", data={"csrf_token": _csrf_token(admin, "/")}).status_code == 302
     assert admin.get("/post/1").status_code == 404
 
 

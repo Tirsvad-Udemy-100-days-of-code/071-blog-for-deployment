@@ -11,7 +11,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-11 | Accepted | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
+| 2026-11-11 | Deprecated | Jens Tirsvad Nielsen | S01 | Initial version | [8bad45b] |
+| 2026-11-12 | Accepted | Jens Tirsvad Nielsen | S01 | Added task 6: make the delete route a POST (hardening requested in chat) | pending |
 
 ---
 
@@ -64,6 +65,7 @@ A Flask application under `src/` with models, forms, routes, authentication, com
 | 3 | Implement authentication | Register, login and logout with Flask-Login and hashed passwords; the user with id 1 is the admin and an `admin_only` decorator guards editing. | No | |
 | 4 | Implement the blog routes | Home, post page, add, edit, delete, about and contact routes with the assignment function names (`get_all_posts`, `show_post`, `add_new_post`, `edit_post`, `delete_post`, `about`, `contact`). | No | |
 | 5 | Write the pytest suite | Cover models, auth, admin guard, post CRUD and comments using an in-memory SQLite database. | No | |
+| 6 | Make the delete route a POST | Change `/delete/<id>` from GET to POST so a link or image on another site cannot delete a post; the index page uses a form with a CSRF token, and tests prove GET gives 405 and a POST without token gives 400. | No | |
 
 ---
 
